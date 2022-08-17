@@ -201,7 +201,7 @@ object ShredJob {
 
     val eventsManifest: Option[EventsManifestConfig] = duplicateStorageConfig.map { json =>
       val config = EventsManifestConfig
-        .parseJson[Id](com.snowplowanalytics.snowplow.rdbloader.transformer.batch.spark.singleton.IgluSingleton.get(igluConfig), json)
+        .parseJson[Id](com.snowplowanalytics.snowplow.rdbloader.transformer.batch.spark.singleton.IgluSingleton.get(igluConfig), json) //TODO old iglu client used by eventsmanifest to validate config
         .valueOr(err => throw new IllegalArgumentException(err))
       val _ = DuplicateStorageSingleton.get(Some(config)) // Just to check it can be initialized
       config
